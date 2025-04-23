@@ -1,0 +1,24 @@
+{
+  "name": "result-university",
+  "version": "1.0.0",
+  "description": "Projects from result-university course",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/virage81/result-university.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/virage81/result-university/issues"
+  },
+  "homepage": "https://github.com/virage81/result-university#readme",
+  "devDependencies": {
+    "webpack": "^5.99.6",
+    "webpack-cli": "^6.0.1"
+  }
+}
