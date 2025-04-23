@@ -1,33 +1,14 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const CopyPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const ESLintPlugin = require("eslint-webpack-plugin");
 
 module.exports = {
-	mode: "development",
 	context: path.resolve(__dirname, "src"),
 	entry: "./index.js",
-	output: {
-		path: path.resolve(__dirname, "dist"),
-		filename: "[name].js",
-		clean: true,
-	},
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: path.resolve(__dirname, "public/index.html"),
-		}),
-		new CopyPlugin({
-			patterns: [
-				{
-					from: path.resolve(__dirname, "public/favicon.ico"),
-					to: path.resolve(__dirname, "dist"),
-				},
-				{
-					from: path.resolve(__dirname, "public/assets"),
-					to: path.resolve(__dirname, "dist/assets"),
-				},
-			],
 		}),
 		new MiniCssExtractPlugin(),
 		new ESLintPlugin(),
