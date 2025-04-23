@@ -1,9 +1,150 @@
 @import url('./reset.scss');
 @import url('./fonts.scss');
 
+html,
+body {
+	min-height: 100dvh;
+}
+
 body {
 	font-family: 'Roboto', sans-serif;
 	font-weight: 400;
 	font-size: 16px;
 	line-height: 1.5;
+}
+
+.sounds {
+	min-height: 100dvh;
+	padding: 40px;
+	position: relative;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	gap: 3rem;
+
+	&__title {
+		color: orange;
+		font-size: 3rem;
+		font-weight: 700;
+		text-align: center;
+
+		margin-bottom: 2rem;
+	}
+
+	&__image {
+		position: absolute;
+		z-index: -1;
+		inset: 0px;
+
+		filter: blur(5px);
+		-webkit-filter: blur(5px);
+		background: url('../assets/summer-bg.jpg') center/cover no-repeat fixed;
+	}
+
+	&__wrapper {
+
+		display: flex;
+		justify-content: center;
+		gap: 0.75rem;
+	}
+
+	&__item {
+		cursor: pointer;
+
+		background: #989898;
+
+		display: flex;
+		place-content: center;
+
+		padding: 4rem;
+
+		border-radius: 1rem;
+		border: 1px solid #fff;
+
+		&-icon {
+			width: 2rem;
+			height: auto;
+		}
+	}
+
+	&__controls {
+		margin: 0 auto;
+		display: inline-block;
+		width: 150px;
+		height: 20px;
+
+		-webkit-appearance: none;
+		appearance: none;
+		background: transparent;
+		cursor: pointer;
+
+		--value: 50;
+
+		&::-webkit-slider-runnable-track {
+			height: 4px;
+			background: linear-gradient(to right,
+					#007bff 0%,
+					#007bff calc(var(--value) * 1%),
+					#ffffff calc(var(--value) * 1%),
+					#ffffff 100%);
+			border-radius: 2px;
+		}
+
+		&::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			appearance: none;
+			width: 16px;
+			height: 16px;
+			background: #007bff;
+			border-radius: 50%;
+			margin-top: -6px;
+			cursor: pointer;
+		}
+
+		&::-moz-range-track {
+			height: 4px;
+			background: linear-gradient(to right,
+					#007bff 0%,
+					#007bff calc(var(--value) * 1%),
+					#ffffff calc(var(--value) * 1%),
+					#ffffff 100%);
+			border-radius: 2px;
+		}
+
+		&::-moz-range-thumb {
+			width: 16px;
+			height: 16px;
+			background: #007bff;
+			border-radius: 50%;
+			border: none;
+			cursor: pointer;
+		}
+
+		&::-ms-track {
+			height: 4px;
+			background: transparent;
+			border-color: transparent;
+			color: transparent;
+		}
+
+		&::-ms-fill-lower {
+			background: #007bff;
+			border-radius: 2px;
+		}
+
+		&::-ms-fill-upper {
+			background: #ffffff;
+			border-radius: 2px;
+		}
+
+		&::-ms-thumb {
+			width: 16px;
+			height: 16px;
+			background: #007bff;
+			border-radius: 50%;
+			cursor: pointer;
+		}
+	}
 }

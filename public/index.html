@@ -7,6 +7,14 @@
 		<title>Weather Sounds</title>
 	</head>
 	<body>
-		<h1>Weather Sounds</h1>
+		<div class="sounds">
+			<h1 class="sounds__title">Weather Sounds</h1>
+			<div class="sounds__image" id="sounds-image-bg"></div>
+
+			<audio id="sound-output" src="" type="audio/mpeg" volume="0.5"></audio>
+
+			<div class="sounds__wrapper" id="sounds-container"></div>
+			<input type="range" value="50" min="0" max="100" class="sounds__controls" id="volume-input" />
+		</div>
 	</body>
 </html>
