@@ -1,11 +1,11 @@
 import "./styles/index.scss";
-import sounds from "./sounds";
+import sounds, { Sound } from "./sounds";
 
 // State for tracking playback
 let isPlaying = false;
-let playingId = null;
+let playingId: number | null = null;
 
-function createSoundItem(sound, soundsImageBg, soundOutput) {
+function createSoundItem(sound: Sound, soundsImageBg: HTMLDivElement, soundOutput: HTMLVideoElement) {
 	const div = document.createElement("div");
 	div.className = "sounds__item";
 	div.style.background = `url(${sound.background}) center/cover no-repeat`;
@@ -22,7 +22,7 @@ function createSoundItem(sound, soundsImageBg, soundOutput) {
 	div.addEventListener("click", () => {
 		// Reset all icons to their default state
 		document.querySelectorAll(".sounds__item-icon").forEach((icon, idx) => {
-			icon.src = sounds[idx].icon;
+			(icon as HTMLImageElement).src = sounds[idx].icon;
 		});
 
 		// Update background
@@ -51,9 +51,9 @@ function createSoundItem(sound, soundsImageBg, soundOutput) {
 document.addEventListener("DOMContentLoaded", () => {
 	// Query DOM elements once
 	const container = document.querySelector("#sounds-container");
-	const soundOutput = document.querySelector("#sound-output");
-	const soundsImageBg = document.querySelector("#sounds-image-bg");
-	const volumeInput = document.querySelector("#volume-input");
+	const soundOutput = document.querySelector("#sound-output") as HTMLVideoElement;
+	const soundsImageBg = document.querySelector("#sounds-image-bg") as HTMLDivElement;
+	const volumeInput = document.querySelector("#volume-input") as HTMLInputElement;
 
 	// Validate elements
 	if (!container || !soundOutput || !soundsImageBg || !volumeInput) {
@@ -72,13 +72,13 @@ document.addEventListener("DOMContentLoaded", () => {
 	});
 
 	// Initialize volume and track fill
-	soundOutput.volume = volumeInput.value / 100;
+	soundOutput.volume = parseInt(volumeInput.value) / 100;
 	volumeInput.style.setProperty("--value", volumeInput.value);
 
 	// Volume control
-	volumeInput.addEventListener("input", (e) => {
-		const value = e.target.value;
-		soundOutput.volume = value / 100;
+	volumeInput.addEventListener("input", (e: Event) => {
+		const value = (e.target as HTMLInputElement).value;
+		soundOutput.volume = parseInt(value) / 100;
 		volumeInput.style.setProperty("--value", value);
 	});
 });

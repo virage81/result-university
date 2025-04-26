@@ -1,3 +1,10 @@
+export interface Sound {
+	id: number;
+	icon: string;
+	background: string;
+	sound: string;
+}
+
 export default [
 	{
 		id: 1,
@@ -17,4 +24,4 @@ export default [
 		background: "./assets/winter-bg.jpg",
 		sound: "./assets/sounds/winter.mp3",
 	},
-];
+] as Sound[];
