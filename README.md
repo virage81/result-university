@@ -6,47 +6,20 @@ A simple web app to play nature sounds (summer, rain, winter) with a volume slid
 
 ## Task
 
-- Build an app using Webpack to play nature sounds.
-- Features:
-  - Volume slider to control audio loudness.
-  - Clickable items to play sounds (only one sound at a time).
-  - Pause/resume sound on repeated clicks.
-  - Change page background image based on the playing sound.
-- Requirements:
-  - Configure Webpack for HTML, CSS, and Sass.
-  - Handle static assets (fonts, favicon, images, audio).
-  - Split Webpack into development and production configs with `webpack-dev-server`.
-  - Use ESLint in development.
-  - Write the app in pure JavaScript.
+- Migrate existing webpack project to typescript.
 
 ## Implementation
 
-### Webpack Setup
+### Typescript Setup
 
 - **Common Config (`webpack.config.common.js`)**:
 
-  - Entry: `src/index.js`.
-  - Plugins:
-    - `HtmlWebpackPlugin`: Uses `public/index.html` as a template.
-    - `MiniCssExtractPlugin`: Extracts CSS into separate files.
-    - `ESLintPlugin`: Lints JavaScript in development.
+  - Entry: `src/index.ts`.
   - Rules:
-    - CSS: `css-loader` with `MiniCssExtractPlugin.loader`.
-    - Sass: `style-loader`, `css-loader`, `postcss-loader`, `sass-loader`.
-    - Fonts: Outputs to `dist/fonts/`.
+    - Typescript: `ts-loader`
 
-- **Development Config (`webpack.config.development.js`)**:
-
-  - Mode: `development`.
-  - Output: `dev/`.
-  - Dev server: Runs on port 3000 with hot reloading.
-  - Plugin: `CopyPlugin` copies `favicon.ico` and `src/assets/` to `dev/`.
-
-- **Production Config (`webpack.config.production.js`)**:
-  - Mode: `production`.
-  - Output: `prod/`.
-  - Plugins: `CopyPlugin` copies `favicon.ico` and `src/assets/` to `prod/`.
-  - Optimization: Minifies JS (`TerserPlugin`) and CSS (`CssMinimizerPlugin`), splits vendor chunks.
+- Migrate all `js` files to `ts`.
+- Fix all type errors.
 
 ### App Features
 
@@ -84,7 +57,15 @@ A simple web app to play nature sounds (summer, rain, winter) with a volume slid
    Opens `http://localhost:3000`.
 
 4. Build for production:
+
    ```bash
    npm run build
    ```
+
    Outputs to `prod/`.
+
+5. Build for development:
+   ```bash
+   npm run build:dev
+   ```
+   Outputs to `dev/`.
