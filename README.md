@@ -1,8 +1,8 @@
-# Typescript #1
+# Typescript #2
 
 ## Target:
 
-1. Create function to calculate price with discount and installment plan for provided period
+1. Create function to normalize data
 2. Type the function
 
 ## Implementation
