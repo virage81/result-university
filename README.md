@@ -1,11 +1,11 @@
-# result-university
+# Typescript #1
 
-Projects from result-university course
+## Target:
 
-## Structure
+1. Create function to calculate price with discount and installment plan for provided period
+2. Type the function
 
-Each module - different branch
+## Implementation
 
-## Branches
-
-1. webpack
+1. Created function
+2. Typed the function
