@@ -1,11 +1,13 @@
-# result-university
+# Typescript #3
 
-Projects from result-university course
+## Target:
 
-## Structure
+1. Create function that makes request to provided URI
+2. Type the function
+3. Log output in the console in the provided format
 
-Each module - different branch
+## Implementation
 
-## Branches
-
-1. webpack
+1. Created function
+2. Typed the function
+3. Logged response
