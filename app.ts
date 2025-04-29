@@ -1,11 +1,18 @@
 const COMMENTS_URL = "https://jsonplaceholder.typicode.com/comments";
 
-const getData = (url) => {
-	// Your code here...
+interface Comment {
+	postId: number;
+	id: number;
+	name: string;
+	email: string;
+	body: string;
+}
+const getData = (url: string) => {
+	return new Promise<Comment[]>((resolve) => resolve(fetch(url).then((res) => res.json())));
 };
 
 getData(COMMENTS_URL).then((data) => {
-	// Your code here...
+	data.forEach((item) => console.log(`ID: ${item.id}, Email: ${item.email}`));
 });
 
 /**
