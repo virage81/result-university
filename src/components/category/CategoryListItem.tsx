@@ -8,7 +8,7 @@ interface Props {
 
 export const CategoryListItem = ({ data, slug }: Props) => {
 	return (
-		<div className='flex items-center justify-between gap-5 py-5 border-2 border-indigo-500 px-7 rounded-xl'>
+		<div className='flex items-center justify-between gap-5 py-5 bg-white border-2 border-indigo-500 px-7 rounded-xl'>
 			<Link to={`/categories/${slug}/${data.id}`} className='text-lg font-bold transition-all hover:underline'>
 				{data.name}
 			</Link>
