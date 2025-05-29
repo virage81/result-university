@@ -5,26 +5,30 @@ import { createBrowserRouter } from 'react-router-dom';
 
 export const routes = createBrowserRouter([
 	{
-		path: '/',
 		element: <MainLayout />,
 		children: [
 			{
-				index: true,
-				element: <Home />,
+				path: '/',
+				children: [
+					{
+						index: true,
+						element: <Home />,
+					},
+				],
 			},
 			{
 				path: '/categories/:slug/',
-				element: <Categories />,
+				children: [
+					{
+						index: true,
+						element: <Categories />,
+					},
+					{
+						path: ':id',
+						element: <CategoryDetail />,
+					},
+				],
 			},
-			{
-				path: '/categories/:slug/:id',
-				element: <CategoryDetail />,
-			},
-		],
-	},
-	{
-		element: <MainLayout />,
-		children: [
 			{
 				path: '*',
 				element: <NotFound />,
