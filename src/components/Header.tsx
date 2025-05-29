@@ -8,7 +8,7 @@ export const Header = () => {
 	}, []);
 
 	return (
-		<header className='sticky top-0 z-20 flex items-center justify-center gap-5 p-5 text-black bg-gray-400 index-x-0'>
+		<header className='sticky top-0 z-20 flex items-center justify-center gap-5 p-5 h-header text-black bg-gray-400 index-x-0'>
 			<nav className='flex gap-5'>
 				<NavLink to='/' className={({ isActive }) => getNavLinkClassName(isActive)}>
 					Home

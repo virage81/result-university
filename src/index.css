@@ -24,3 +24,7 @@
 
 	min-height: 100dvh;
 }
+
+@theme {
+	--height-header: 64px;
+}
