@@ -13,11 +13,14 @@ export const Header = () => {
 				<NavLink to='/' className={({ isActive }) => getNavLinkClassName(isActive)}>
 					Home
 				</NavLink>
-				<NavLink to='/categories' className={({ isActive }) => getNavLinkClassName(isActive)}>
-					Categories
+				<NavLink to='/categories/characters' className={({ isActive }) => getNavLinkClassName(isActive)}>
+					Characters
 				</NavLink>
-				<NavLink to='/details' className={({ isActive }) => getNavLinkClassName(isActive)}>
-					Details
+				<NavLink to='/categories/locations' className={({ isActive }) => getNavLinkClassName(isActive)}>
+					Locations
+				</NavLink>
+				<NavLink to='/categories/episodes' className={({ isActive }) => getNavLinkClassName(isActive)}>
+					Episodes
 				</NavLink>
 			</nav>
 		</header>

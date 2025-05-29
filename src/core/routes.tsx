@@ -1,5 +1,5 @@
 import { MainLayout } from '@/layouts';
-import { Categories, Home } from '@/pages';
+import { Categories, CategoryDetail, Home } from '@/pages';
 import { NotFound } from '@/pages/NotFound';
 import { createBrowserRouter } from 'react-router-dom';
 
@@ -13,8 +13,12 @@ export const routes = createBrowserRouter([
 				element: <Home />,
 			},
 			{
-				path: '/categories',
+				path: '/categories/:slug/',
 				element: <Categories />,
+			},
+			{
+				path: '/categories/:slug/:id',
+				element: <CategoryDetail />,
 			},
 		],
 	},
