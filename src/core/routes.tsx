@@ -1,5 +1,7 @@
+import { ProtectedRoute } from '@/components';
 import { MainLayout } from '@/layouts';
-import { Categories, CategoryDetail, Home } from '@/pages';
+import { Categories, CategoryDetail, Home, Login } from '@/pages';
+
 import { NotFound } from '@/pages/NotFound';
 import { createBrowserRouter } from 'react-router-dom';
 
@@ -17,15 +19,24 @@ export const routes = createBrowserRouter([
 				],
 			},
 			{
-				path: '/categories/:slug/',
+				path: '/login',
+				element: <Login />,
+			},
+			{
+				element: <ProtectedRoute />,
 				children: [
 					{
-						index: true,
-						element: <Categories />,
-					},
-					{
-						path: ':id',
-						element: <CategoryDetail />,
+						path: '/categories/:slug/',
+						children: [
+							{
+								index: true,
+								element: <Categories />,
+							},
+							{
+								path: ':id',
+								element: <CategoryDetail />,
+							},
+						],
 					},
 				],
 			},
