@@ -1,9 +1,8 @@
 import { CategoryCard } from '@/components/category';
 import { CHARACTERS, EPISODES, LOCATIONS } from '@/constants';
-import { useNotFound } from '@/hooks/useNotFound';
 import type { Character, Episode, Location } from '@/types/categories';
 import { useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 
 const getItem = (array: (Episode | Character | Location)[], id: string) => {
 	return array.find(item => item.id === parseInt(id));
@@ -31,7 +30,7 @@ export const CategoryDetail = () => {
 		}
 	}, [slug, id]);
 
-	useNotFound(data);
+	if (!data) return <Navigate to='/not-found' replace />;
 
 	return <section className='flex items-center justify-center grow'>{<CategoryCard data={data!} />}</section>;
 };
