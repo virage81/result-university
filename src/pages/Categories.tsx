@@ -1,10 +1,9 @@
 import { CategoryListItem } from '@/components/category';
 import { AsideFilter } from '@/components/category/AsideFilter';
 import { CHARACTERS, EPISODES, LOCATIONS } from '@/constants';
-import { useNotFound } from '@/hooks/useNotFound';
 import type { Character, Episode, Location } from '@/types/categories';
 import { useMemo } from 'react';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { Navigate, useParams, useSearchParams } from 'react-router-dom';
 
 export const Categories = () => {
 	const { slug } = useParams();
@@ -39,7 +38,7 @@ export const Categories = () => {
 		});
 	}, [data, order]);
 
-	useNotFound(data);
+	if (!data.length) return <Navigate to='/not-found' replace />;
 
 	return (
 		<section className='grid grid-cols-5 w-full gap-10 grow'>
