@@ -1,26 +1,34 @@
 import { MainLayout } from '@/layouts';
-import { Categories, Home } from '@/pages';
+import { Categories, CategoryDetail, Home } from '@/pages';
 import { NotFound } from '@/pages/NotFound';
 import { createBrowserRouter } from 'react-router-dom';
 
 export const routes = createBrowserRouter([
 	{
-		path: '/',
 		element: <MainLayout />,
 		children: [
 			{
-				index: true,
-				element: <Home />,
+				path: '/',
+				children: [
+					{
+						index: true,
+						element: <Home />,
+					},
+				],
 			},
 			{
-				path: '/categories',
-				element: <Categories />,
+				path: '/categories/:slug/',
+				children: [
+					{
+						index: true,
+						element: <Categories />,
+					},
+					{
+						path: ':id',
+						element: <CategoryDetail />,
+					},
+				],
 			},
-		],
-	},
-	{
-		element: <MainLayout />,
-		children: [
 			{
 				path: '*',
 				element: <NotFound />,

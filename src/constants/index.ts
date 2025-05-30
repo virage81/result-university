@@ -4,4 +4,4 @@ import location from './location.json';
 
 export const CHARACTERS = characters;
 export const EPISODES = episodes;
-export const LOCATION = location;
+export const LOCATIONS = location;
