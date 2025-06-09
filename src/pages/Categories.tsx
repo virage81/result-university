@@ -1,51 +1,53 @@
+import { PageLoading } from '@/components';
 import { CategoryListItem } from '@/components/category';
 import { AsideFilter } from '@/components/category/AsideFilter';
-import { CHARACTERS, EPISODES, LOCATIONS } from '@/constants';
-import type { Character, Episode, Location } from '@/types/categories';
-import { useMemo } from 'react';
-import { Navigate, useParams, useSearchParams } from 'react-router-dom';
+import { useSearchQuery } from '@/hooks/useSearchQuery';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useParams, useSearchParams } from 'react-router-dom';
 
 export const Categories = () => {
 	const { slug } = useParams();
 
 	const [searchParams] = useSearchParams();
 
-	const order = useMemo(() => searchParams.get('created') ?? 'asc', [searchParams]);
+	const [page, setPage] = useState(1);
 
-	const data = useMemo<(Episode | Character | Location)[]>(() => {
-		switch (slug) {
-			case 'characters': {
-				return CHARACTERS;
-			}
-			case 'locations': {
-				return LOCATIONS;
-			}
-			case 'episodes': {
-				return EPISODES;
-			}
-			default: {
-				return [];
-			}
-		}
+	const order = useMemo(() => searchParams.get('created') ?? 'asc', [searchParams]);
+	const observer = useRef<IntersectionObserver | null>(null);
+
+	const { data, loading, error } = useSearchQuery({ query: slug ?? '', page, order });
+
+	const lastNodeRef = useCallback(
+		(node: HTMLDivElement) => {
+			if (loading) return;
+			if (observer.current) observer.current.disconnect();
+
+			observer.current = new IntersectionObserver(entries => {
+				if (entries[0].isIntersecting) setPage(prev => prev + 1);
+			});
+
+			if (node) observer.current.observe(node);
+		},
+		[loading]
+	);
+
+	useEffect(() => {
+		setPage(1);
 	}, [slug]);
 
-	const sortedData = useMemo(() => {
-		return data.sort((a, b) => {
-			const aDate = new Date(a.created).getTime();
-			const bDate = new Date(b.created).getTime();
-
-			return order === 'asc' ? aDate - bDate : bDate - aDate;
-		});
-	}, [data, order]);
-
-	if (!data.length) return <Navigate to='/not-found' replace />;
-
 	return (
-		<section className='grid grid-cols-5 w-full gap-10 grow'>
-			<div className='flex flex-col gap-2 col-span-4'>
-				{sortedData.map(item => (
-					<CategoryListItem key={item.id} data={item} slug={slug!} />
-				))}
+		<section className='grid w-full grid-cols-5 gap-10 grow'>
+			<div className='flex flex-col col-span-4 gap-2 grow'>
+				{data.map((item, i) => {
+					if (data.length - 5 === i + 1) {
+						return <CategoryListItem key={item.id} ref={lastNodeRef} data={item} slug={slug!} />;
+					}
+					return <CategoryListItem key={item.id} data={item} slug={slug!} />;
+				})}
+
+				{loading && <PageLoading />}
+
+				{error && <p className='text-xl text-center text-red-500'>{error}</p>}
 			</div>
 			<AsideFilter />
 		</section>

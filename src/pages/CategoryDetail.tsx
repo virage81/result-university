@@ -1,36 +1,18 @@
+import { PageLoading } from '@/components';
 import { CategoryCard } from '@/components/category';
-import { CHARACTERS, EPISODES, LOCATIONS } from '@/constants';
-import type { Character, Episode, Location } from '@/types/categories';
-import { useMemo } from 'react';
-import { Navigate, useParams } from 'react-router-dom';
-
-const getItem = (array: (Episode | Character | Location)[], id: string) => {
-	return array.find(item => item.id === parseInt(id));
-};
+import { useDetailsQuery } from '@/hooks/useDetailsQuery';
+import { useParams } from 'react-router-dom';
 
 export const CategoryDetail = () => {
-	const { slug, id } = useParams();
+	const { slug = '', id = '' } = useParams();
 
-	const data = useMemo(() => {
-		if (!id || !slug) return;
+	const { data, error, loading } = useDetailsQuery({ id, query: slug });
 
-		switch (slug) {
-			case 'characters': {
-				return getItem(CHARACTERS, id);
-			}
-			case 'locations': {
-				return getItem(LOCATIONS, id);
-			}
-			case 'episodes': {
-				return getItem(EPISODES, id);
-			}
-			default: {
-				return;
-			}
-		}
-	}, [slug, id]);
-
-	if (!data) return <Navigate to='/not-found' replace />;
-
-	return <section className='flex items-center justify-center grow'>{<CategoryCard data={data!} />}</section>;
+	return (
+		<section className='flex items-center justify-center grow'>
+			{loading && <PageLoading />}
+			{error && <p className='text-xl text-center text-red-500'>{error}</p>}
+			{data && <CategoryCard data={data} />}
+		</section>
+	);
 };
