@@ -1,7 +1,9 @@
+import { Flex, Text } from '@mantine/core';
+
 export const PageLoading = () => {
 	return (
-		<section className='grow flex items-center justify-center'>
-			<h3 className='text-xl'>Loading...</h3>
-		</section>
+		<Flex component='section' flex={1} align='center' justify='center'>
+			<Text fz={{ base: 'sm', sm: 'xl' }}>Loading...</Text>
+		</Flex>
 	);
 };
