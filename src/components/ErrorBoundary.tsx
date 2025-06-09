@@ -1,3 +1,4 @@
+import { Flex, Text } from '@mantine/core';
 import { Component, type ErrorInfo, type ReactNode } from 'react';
 
 interface Props {
@@ -31,7 +32,11 @@ export class ErrorBoundary extends Component<Props, State> {
 
 	render(): ReactNode {
 		if (this.state.hasError) {
-			return <section className='grow flex items-center justify-center'>Error happened...</section>;
+			return (
+				<Flex component='section' flex={1} align='center' justify='center'>
+					<Text>Error happened...</Text>
+				</Flex>
+			);
 		}
 		return this.props.children;
 	}
