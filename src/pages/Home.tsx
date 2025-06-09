@@ -1,5 +1,5 @@
-import { Button } from '@/components/common';
 import { useAuthContext } from '@/contexts/auth';
+import { Button, Flex, Text } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 
 export const Home = () => {
@@ -8,18 +8,28 @@ export const Home = () => {
 	const { user, signOut } = useAuthContext();
 
 	return (
-		<section className='flex flex-col items-center justify-center gap-10 grow'>
-			{user && <h2 className='text-2xl font-bold'>Hi, {user.nickname} 👋</h2>}
+		<Flex component='section' flex={1} align='center' justify='center' gap='lg' direction='column'>
+			{user && (
+				<Text fz={{ base: 'md', sm: 'lg' }} fw={700}>
+					Hi, {user.nickname} 👋
+				</Text>
+			)}
 
-			<h2 className='text-3xl font-bold'>Welcome to Rick And Morty project!</h2>
+			<Text fz={{ base: 'lg', sm: 'xl' }} fw={700}>
+				Welcome to Rick And Morty project!
+			</Text>
 
 			<div className='flex gap-5 items-center'>
 				{!user ? (
-					<Button onClick={() => navigate('/login')}>Sign In</Button>
+					<Button bg='indigo.5' onClick={() => navigate('/login')}>
+						Sign In
+					</Button>
 				) : (
-					<Button onClick={signOut}>Sign Out</Button>
+					<Button bg='indigo.5' onClick={signOut}>
+						Sign Out
+					</Button>
 				)}
 			</div>
-		</section>
+		</Flex>
 	);
 };
