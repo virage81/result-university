@@ -1,14 +1,18 @@
 import type { Character, Episode, Location } from '@/types/categories';
+import { type Ref } from 'react';
 import { Link } from 'react-router-dom';
 
 interface Props {
 	data: Episode | Location | Character;
 	slug: string;
+	ref?: Ref<HTMLDivElement>;
 }
 
-export const CategoryListItem = ({ data, slug }: Props) => {
+export const CategoryListItem = ({ data, slug, ref }: Props) => {
 	return (
-		<div className='flex items-center justify-between gap-5 py-5 bg-white border-2 border-indigo-500 px-7 rounded-xl'>
+		<div
+			ref={ref}
+			className='flex items-center justify-between gap-5 py-5 bg-white border-2 border-indigo-500 px-7 rounded-xl'>
 			<Link to={`/categories/${slug}/${data.id}`} className='text-lg font-bold transition-all hover:underline'>
 				{data.name}
 			</Link>
@@ -18,3 +22,5 @@ export const CategoryListItem = ({ data, slug }: Props) => {
 		</div>
 	);
 };
+
+CategoryListItem.displayName = 'CategoryListItem';
