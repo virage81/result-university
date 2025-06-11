@@ -1,34 +1,45 @@
-import { useEffect, useMemo, type ChangeEvent } from 'react';
+import { Flex, GridCol, Select, Text } from '@mantine/core';
+import { useEffect, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 export const AsideFilter = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 
-	const createdOrder = useMemo(() => searchParams.get('created'), [searchParams]);
+	const createdOrder = useMemo(() => searchParams.get('created') ?? 'asc', [searchParams]);
 
-	const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-		setSearchParams({ created: e.target.value });
+	const handleChange = (value: string | null) => {
+		setSearchParams({ created: value ?? 'asc' });
 	};
 
 	useEffect(() => {
-		if (!createdOrder) setSearchParams({ created: 'asc' });
-	}, [createdOrder, setSearchParams]);
+		if (!searchParams.has('created')) setSearchParams({ created: 'asc' });
+	}, [searchParams, setSearchParams]);
 
 	return (
-		<aside className='sticky top-[calc(var(--height-header)+20px)] border-2 border-indigo-500 py-2 px-5 bg-white rounded-xl h-fit col-span-1 text-right'>
-			<h6 className='font-bold'>Sort</h6>
-			<div className='flex flex-col gap-2'>
-				<label htmlFor='order'>Creation date</label>
-				<select
-					value={createdOrder ?? 'asc'}
+		<GridCol
+			component='aside'
+			pos='sticky'
+			top='calc(var(--height-header) + 20px)'
+			bd='2px solid indigo.5'
+			py='sm'
+			px='md'
+			bg='white'
+			h='fit-content'
+			span={1}
+			ta='right'
+			className='rounded-xl'>
+			<Text fw={700}>Sort</Text>
+			<Flex gap={2} direction='column'>
+				<Select
+					value={createdOrder}
 					onChange={handleChange}
-					name='order'
-					id='order'
-					className='px-3 py-1 border border-indigo-500 rounded-sm'>
-					<option value='asc'>ASC</option>
-					<option value='desc'>DESC</option>
-				</select>
-			</div>
-		</aside>
+					label='Creation date'
+					data={[
+						{ value: 'asc', label: 'ASC' },
+						{ value: 'desc', label: 'DESC' },
+					]}
+				/>
+			</Flex>
+		</GridCol>
 	);
 };

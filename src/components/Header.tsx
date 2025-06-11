@@ -1,28 +1,62 @@
-import { useCallback } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Flex, Paper, Text } from '@mantine/core';
+import { useCallback, type ReactNode } from 'react';
+import { NavLink, type NavLinkProps } from 'react-router-dom';
+
+const ROUTES = [
+	{
+		to: '/',
+		label: 'Home',
+	},
+	{
+		to: '/categories/character',
+		label: 'Characters',
+	},
+	{
+		to: '/categories/location',
+		label: 'Locations',
+	},
+	{
+		to: '/categories/episode',
+		label: 'Episodes',
+	},
+];
 
 export const Header = () => {
+	return (
+		<Paper
+			component='header'
+			p={{ xs: 'lg', base: 'xs' }}
+			shadow='md'
+			bg='gray.4'
+			c='dark.9'
+			pos='sticky'
+			top={0}
+			inset={{ x: 0 }}
+			h='var(--height-header)'
+			className='z-20'>
+			<Flex component='nav' align='center' justify='center' gap='lg' __size='lg'>
+				{ROUTES.map(route => (
+					<CustomNavLink key={route.to} to={route.to}>
+						{route.label}
+					</CustomNavLink>
+				))}
+			</Flex>
+		</Paper>
+	);
+};
+
+interface CustomNavLinkProps extends NavLinkProps {
+	children: ReactNode;
+}
+
+const CustomNavLink = ({ children, ...rest }: CustomNavLinkProps) => {
 	const getNavLinkClassName = useCallback((isActive: boolean = false): string => {
-		const className = `${isActive ? 'text-indigo-700' : 'text-inherit'}`;
-		return className;
+		return `${isActive ? 'text-indigo-700' : 'text-inherit'}`;
 	}, []);
 
 	return (
-		<header className='sticky top-0 z-20 flex items-center justify-center gap-5 p-5 h-header text-black bg-gray-400 index-x-0'>
-			<nav className='flex gap-5'>
-				<NavLink to='/' className={({ isActive }) => getNavLinkClassName(isActive)}>
-					Home
-				</NavLink>
-				<NavLink to='/categories/character' className={({ isActive }) => getNavLinkClassName(isActive)}>
-					Characters
-				</NavLink>
-				<NavLink to='/categories/location' className={({ isActive }) => getNavLinkClassName(isActive)}>
-					Locations
-				</NavLink>
-				<NavLink to='/categories/episode' className={({ isActive }) => getNavLinkClassName(isActive)}>
-					Episodes
-				</NavLink>
-			</nav>
-		</header>
+		<NavLink className={({ isActive }) => getNavLinkClassName(isActive)} {...rest}>
+			<Text fz={{ base: 'sm', xs: 'md' }}>{children}</Text>
+		</NavLink>
 	);
 };

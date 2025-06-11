@@ -2,11 +2,12 @@ import { PageLoading } from '@/components';
 import { CategoryListItem } from '@/components/category';
 import { AsideFilter } from '@/components/category/AsideFilter';
 import { useSearchQuery } from '@/hooks/useSearchQuery';
+import { Grid, GridCol, Text } from '@mantine/core';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 
 export const Categories = () => {
-	const { slug } = useParams();
+	const { slug = '' } = useParams();
 
 	const [searchParams] = useSearchParams();
 
@@ -36,20 +37,24 @@ export const Categories = () => {
 	}, [slug]);
 
 	return (
-		<section className='grid w-full grid-cols-5 gap-10 grow'>
-			<div className='flex flex-col col-span-4 gap-2 grow'>
+		<Grid component='section' columns={5} justify='center' gutter='xl' flex={1} className='w-full'>
+			<GridCol span={4} className='flex flex-col grow gap-2'>
 				{data.map((item, i) => {
 					if (data.length - 5 === i + 1) {
-						return <CategoryListItem key={item.id} ref={lastNodeRef} data={item} slug={slug!} />;
+						return <CategoryListItem key={item.id} ref={lastNodeRef} data={item} slug={slug} />;
 					}
-					return <CategoryListItem key={item.id} data={item} slug={slug!} />;
+					return <CategoryListItem key={item.id} data={item} slug={slug} />;
 				})}
 
 				{loading && <PageLoading />}
 
-				{error && <p className='text-xl text-center text-red-500'>{error}</p>}
-			</div>
+				{error && (
+					<Text fz={{ base: 'lg', sm: 'xl' }} ta='center' c='red.5'>
+						{error}
+					</Text>
+				)}
+			</GridCol>
 			<AsideFilter />
-		</section>
+		</Grid>
 	);
 };
