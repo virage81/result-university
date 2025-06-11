@@ -1,6 +1,7 @@
 import { PageLoading } from '@/components';
 import { CategoryCard } from '@/components/category';
 import { useDetailsQuery } from '@/hooks/useDetailsQuery';
+import { Flex, Text } from '@mantine/core';
 import { useParams } from 'react-router-dom';
 
 export const CategoryDetail = () => {
@@ -9,10 +10,14 @@ export const CategoryDetail = () => {
 	const { data, error, loading } = useDetailsQuery({ id, query: slug });
 
 	return (
-		<section className='flex items-center justify-center grow'>
+		<Flex component='section' flex={1} align='center' justify='center'>
 			{loading && <PageLoading />}
-			{error && <p className='text-xl text-center text-red-500'>{error}</p>}
+			{error && (
+				<Text fz={{ base: 'lg', sm: 'xl' }} c='red.5' ta='center'>
+					{error}
+				</Text>
+			)}
 			{data && <CategoryCard data={data} />}
-		</section>
+		</Flex>
 	);
 };

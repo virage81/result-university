@@ -1,5 +1,6 @@
 import type { Character, Episode, Location } from '@/types/categories';
 import { isCharacter, isEpisode, isLocation } from '@/utils';
+import { Flex, Text } from '@mantine/core';
 
 interface Props {
 	data: Episode | Character | Location;
@@ -7,36 +8,36 @@ interface Props {
 
 export const CategoryCard = ({ data }: Props) => {
 	return (
-		<div className='flex gap-5 py-5 bg-white border-2 border-indigo-500 px-7 rounded-xl'>
+		<Flex gap='lg' py='lg' px='xl' bg='white' bd='2px solid indigo.5' className='rounded-xl'>
 			{isCharacter(data) && <img src={data.image} alt={`${data.name} image`} className='rounded-lg' />}
 
-			<div className='flex flex-col gap-2'>
-				<p className='font-bold'>{data.name}</p>
-				<p>Created at: {data.created}</p>
+			<Flex gap='sm' direction='column'>
+				<Text fw={700}>{data.name}</Text>
+				<Text>Created at: {data.created}</Text>
 
 				{isEpisode(data) && (
 					<>
-						<p>Upload date: {data.air_date}</p>
-						<p>Episode: {data.episode}</p>
+						<Text>Upload date: {data.air_date}</Text>
+						<Text>Episode: {data.episode}</Text>
 					</>
 				)}
 
 				{isCharacter(data) && (
 					<>
-						<p>Gender: {data.gender}</p>
-						<p>Specie: {data.species}</p>
-						<p>Status: {data.status}</p>
-						<p>Type: {data.type || 'Unknown'}</p>
+						<Text>Gender: {data.gender}</Text>
+						<Text>Specie: {data.species}</Text>
+						<Text>Status: {data.status}</Text>
+						<Text>Type: {data.type || 'Unknown'}</Text>
 					</>
 				)}
 
 				{isLocation(data) && (
 					<>
-						<p>Dimension: {data.dimension}</p>
-						<p>Type: {data.type}</p>
+						<Text>Dimension: {data.dimension}</Text>
+						<Text>Type: {data.type}</Text>
 					</>
 				)}
-			</div>
-		</div>
+			</Flex>
+		</Flex>
 	);
 };
