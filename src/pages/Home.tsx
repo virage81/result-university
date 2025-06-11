@@ -19,17 +19,15 @@ export const Home = () => {
 				Welcome to Rick And Morty project!
 			</Text>
 
-			<div className='flex gap-5 items-center'>
-				{!user ? (
-					<Button bg='indigo.5' onClick={() => navigate('/login')}>
-						Sign In
-					</Button>
-				) : (
-					<Button bg='indigo.5' onClick={signOut}>
-						Sign Out
-					</Button>
-				)}
-			</div>
+			{!user ? (
+				<Button bg='indigo.5' onClick={() => navigate('/login')}>
+					Sign In
+				</Button>
+			) : (
+				<Button bg='indigo.5' onClick={signOut}>
+					Sign Out
+				</Button>
+			)}
 		</Flex>
 	);
 };

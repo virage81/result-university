@@ -2,7 +2,7 @@ import { PageLoading } from '@/components';
 import { CategoryListItem } from '@/components/category';
 import { AsideFilter } from '@/components/category/AsideFilter';
 import { useSearchQuery } from '@/hooks/useSearchQuery';
-import { Grid, GridCol } from '@mantine/core';
+import { Grid, GridCol, Text } from '@mantine/core';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 
@@ -48,7 +48,11 @@ export const Categories = () => {
 
 				{loading && <PageLoading />}
 
-				{error && <p className='text-xl text-center text-red-500'>{error}</p>}
+				{error && (
+					<Text fz={{ base: 'lg', sm: 'xl' }} ta='center' c='red.5'>
+						{error}
+					</Text>
+				)}
 			</GridCol>
 			<AsideFilter />
 		</Grid>
